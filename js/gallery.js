@@ -64,3 +64,55 @@ const images = [
       },
     ];
     
+
+    const galleryContainer = document.querySelector('.gallery');
+
+const galleryItems = images
+  .map(
+    ({ preview, original, description }) => `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `
+  )
+  .join('');
+
+galleryContainer.innerHTML = galleryItems;
+
+
+galleryContainer.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const target = event.target;
+  if (target.nodeName !== 'IMG') return;
+
+  const largeImageURL = target.dataset.source;
+  console.log(largeImageURL);
+  
+});
+
+const gallery = document.querySelector('.gallery'); 
+
+gallery.addEventListener('click', onGalleryClick);
+
+function onGalleryClick(event) {
+  event.preventDefault(); 
+
+  const clickedElement = event.target; 
+
+  
+  if (clickedElement.nodeName !== 'IMG') {
+    return; 
+  }
+
+  const largeImageURL = clickedElement.dataset.source; 
+  console.log( largeImageURL);
+}
+
